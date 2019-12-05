@@ -1,0 +1,31 @@
+{
+  "name": "parking-management",
+  "version": "1.0.0",
+  "description": "An interactive CLI application to manage parkings.",
+  "preferGlobal": true,
+  "bin": "./app.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pramayn99/parking-management.git"
+  },
+  "keywords": [
+    "parking",
+    "cars",
+    "vehicle",
+    "traffic"
+  ],
+  "author": "Pramay Nikhade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pramayn99/parking-management/issues"
+  },
+  "homepage": "https://github.com/pramayn99/parking-management#readme",
+  "dependencies": {
+    "commander": "^4.0.1",
+    "inquirer": "^7.0.0"
+  }
+}
