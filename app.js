@@ -29,8 +29,11 @@ program
     .action(() => {
         prompt(questions.createParkingLotQ)
             .then(answer => {
-                service.createParkingLot(answer.slots)
-                console.log(`Created a parking lot with ${answer.slots} slots`)
+                let slotSize = service.createParkingLot(answer.slots)
+                if(slotSize)
+                    console.log(`Created a parking lot with ${answer.slots} slots`)
+                else    
+                    console.log(`Please, create a parking lot with slot size greater than 0`)
             })
     });
 

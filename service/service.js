@@ -1,23 +1,38 @@
 const fs = require('fs');
+require('dotenv').config()
 
 const getParkingLot = () => {
-    if (!fs.existsSync('parkingLot.json'))
-        fs.writeFileSync('parkingLot.json', '{}');
-    let parkingLot = fs.readFileSync('parkinglot.json', "utf-8")
+    let fileName = 'parkingLot.json'
+    if(process.env.NODE_ENV=='test') 
+        fileName = 'testParkingLot.json'
+    
+    if (!fs.existsSync(fileName))
+        fs.writeFileSync(fileName, '{}');
+    let parkingLot = fs.readFileSync(fileName, "utf-8")
     return JSON.parse(parkingLot)
 }
 
 const saveParkingLot = (data) => {
-    fs.writeFileSync('parkinglot.json', JSON.stringify(data), "utf-8")
+    let fileName = 'parkingLot.json'
+    if(process.env.NODE_ENV=='test') 
+        fileName = 'testParkingLot.json'
+
+    fs.writeFileSync(fileName, JSON.stringify(data), "utf-8")
 }
 
 const createParkingLot = (slotSize) => {
+    let parkingLot = {}
+    if(slotSize==0)
+    {
+        saveParkingLot(parkingLot)
+        return null
+    }
     let slotList = Array.from(Array(parseInt(slotSize))).map((e, i) => i + 1)
-    let parkingLot = getParkingLot()
     slotList.forEach(slot => {
         parkingLot[slot] = null
     });
     saveParkingLot(parkingLot)
+    return slotSize
 }
 
 const parkVehicle = (vehicle) => {
@@ -45,6 +60,8 @@ const leaveParkingLot = (slot) => {
 
 const status = () => {
     let parkingLot = getParkingLot()
+    if(parkingLot == {})
+        return null;
     let currentStatus = Object.keys(parkingLot)
         .filter(slot => parkingLot[slot] != null)
         .reduce((current, slot) => {
